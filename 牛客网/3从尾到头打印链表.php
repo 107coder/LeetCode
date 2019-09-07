@@ -50,6 +50,10 @@ function doaction($head,&$res_arr)
     }
 }
 
+/*
+ * 
+ */
+
 $node0 = new ListNode(0);
 $node1 = new ListNode(1);
 $node2 = new ListNode(2);
@@ -59,7 +63,12 @@ $node0->next = $node1;
 $node1->next = $node2;
 $node2->next = $node3;
 
+// 0->1->2->3
 // $head = null;
 $res = printListFromTailToHead_2($head);
 
-var_dump($res);
+// print_r($head);
+// print_r($res);
+
+$tese = time();
+var_dump(date('Y-m-d H:m:s',$tese));
