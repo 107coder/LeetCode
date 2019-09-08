@@ -51,8 +51,22 @@ function doaction($head,&$res_arr)
 }
 
 /*
- * 
+ * function_2:使用栈的结构来返回
  */
+function printListFromTailToHead_3($head)
+{
+    $res_arr = array();
+    if($head == NULL) return ;
+
+    while($head != NULL)
+    {
+        array_unshift($res_arr, $head->val);
+        $head = $head->next;
+    }
+
+    return $res_arr;
+
+}
 
 $node0 = new ListNode(0);
 $node1 = new ListNode(1);
@@ -68,7 +82,4 @@ $node2->next = $node3;
 $res = printListFromTailToHead_2($head);
 
 // print_r($head);
-// print_r($res);
-
-$tese = time();
-var_dump(date('Y-m-d H:m:s',$tese));
+print_r($res);
