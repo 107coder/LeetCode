@@ -42,7 +42,7 @@ function minNumberInRotateArray($rotateArray)
    			$left = $mid;
    		}
    		else
-   		{
+   		{	
    			$right = $mid;
    		}
    		if($left+1 == $right) break;
