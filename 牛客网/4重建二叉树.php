@@ -18,54 +18,54 @@ function reConstructBinaryTree_1($pre, $vin)
 {
 
 	if(!empty($pre)) {
-    //求得构建二叉树所用的根节点
-    $rootVal = $pre[0];
-    //创建根节点
-    $root = new TreeNode($rootVal);
+        //求得构建二叉树所用的根节点
+        $rootVal = $pre[0];
+        //创建根节点
+        $root = new TreeNode($rootVal);
 
-    foreach ($vin as $key => $value) {
-    	if($rootVal == $value) break;
-    }
-    $rootIndex = $key;
+        foreach ($vin as $key => $value) {
+        	if($rootVal == $value) break;
+        }
+        $rootIndex = $key;
 
-    //前序左子树 和 中序左子树
-    $leftChildPre = [];
-    $leftChildVin = [];
+        //前序左子树 和 中序左子树
+        $leftChildPre = [];
+        $leftChildVin = [];
 
-    // 前序右子树 和 中序右子树
-    $rightChildPre = [];
-    $rightChildVin = [];
+        // 前序右子树 和 中序右子树
+        $rightChildPre = [];
+        $rightChildVin = [];
 
-    foreach ($pre as $key => $value) {
-    	//去掉第一个元素
-    	if($key == 0) continue;
-		if($key <= $rootIndex)
-		{
-			array_push($leftChildPre,$value);
-		}
-		else
-		{
-			array_push($rightChildPre,$value);
-		}
-    }
-    foreach ($vin as $key => $value) {
-    	if($key < $rootIndex)
-    	{
-    		array_push($leftChildVin,$value);
-    	}
-    	else if($key > $rootIndex)
-    	{
-    		array_push($rightChildVin,$value);
-    	}
-    }
+        foreach ($pre as $key => $value) {
+        	//去掉第一个元素
+        	if($key == 0) continue;
+    		if($key <= $rootIndex)
+    		{
+    			array_push($leftChildPre,$value);
+    		}
+    		else
+    		{
+    			array_push($rightChildPre,$value);
+    		}
+        }
+        foreach ($vin as $key => $value) {
+        	if($key < $rootIndex)
+        	{
+        		array_push($leftChildVin,$value);
+        	}
+        	else if($key > $rootIndex)
+        	{
+        		array_push($rightChildVin,$value);
+        	}
+        }
 
-    if($GLOBALS['count'] <= 8)
-    {
-	    $root->left = reConstructBinaryTree($leftChildPre,$leftChildVin);
-	    $root->right = reConstructBinaryTree($rightChildPre,$rightChildVin);
-    }
-    
-    return $root;
+        if($GLOBALS['count'] <= 8)
+        {
+    	    $root->left = reConstructBinaryTree_1($leftChildPre,$leftChildVin);
+    	    $root->right = reConstructBinaryTree_1($rightChildPre,$rightChildVin);
+        }
+        
+        return $root;
 	}
 }
 
