@@ -24,7 +24,7 @@ function Merge($pHead1, $pHead2)
    			$pHead2 = $pHead2->next;
    			$tmp->next = NULL;
    			$newHead->next = $tmp;
-   			$newHead = $$newHead->next;
+   			$newHead = $newHead->next;
    		}
    		else if($val1 < $val2)
    		{
@@ -32,7 +32,7 @@ function Merge($pHead1, $pHead2)
    			$pHead1 = $pHead1->next;
    			$tmp->next = NULL;
    			$newHead->next = $tmp;
-   			$newHead = $$newHead->next;
+   			$newHead = $newHead->next;
    		}
    		else if($val1 == $val2)
    		{
@@ -40,31 +40,31 @@ function Merge($pHead1, $pHead2)
    			$pHead1 = $pHead1->next;
    			$tmp->next = NULL;
    			$newHead->next = $tmp;
-   			$newHead = $$newHead->next;
+   			$newHead = $newHead->next;
 
    			$tmp = $pHead2;
    			$pHead2 = $pHead2->next;
    			$tmp->next = NULL;
    			$newHead->next = $tmp;
-   			$newHead = $$newHead->next;
+   			$newHead = $newHead->next;
    		}
    		else 
    		{
 
    		}
-
-   		if($pHead1 == NULL)
-   		{
-   			$newHead->next = $pHead2;
-   		}
-
-   		if($pHead2 == NULL)
-   		{
-   			$newHead->next = $pHead1;
-   		}
-
-   		return $result;
    	}
+
+	if($pHead1 == NULL)
+	{
+		$newHead->next = $pHead2;
+	}
+
+	if($pHead2 == NULL)
+	{
+		$newHead->next = $pHead1;
+	}
+
+	return $result->next;
 }
 
 $l0 = new ListNode(1);
