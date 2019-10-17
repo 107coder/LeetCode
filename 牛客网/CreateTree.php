@@ -14,7 +14,7 @@ class TreeNode{
 
 function CreateTree(&$array)
 {
-	if($array[0] == '#' || empty($array))
+	if(empty($array) || $array[0] == '#')
 	{
 		return NULL;
 	}
