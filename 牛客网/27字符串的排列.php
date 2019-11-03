@@ -5,9 +5,6 @@
 输入描述:
 输入一个字符串,长度不超过9(可能有字符重复),字符只包括大小写字母。
 */
-链接：https://www.nowcoder.com/questionTerminal/fe6b651b66ae47d7acce78ffdd9a96c7?f=discussion
-来源：牛客网
-
 /**
      * 1、递归算法
      *
@@ -35,30 +32,83 @@ $return_arr = [];
 function Permutation($str)
 {
     // write code here
+    global $return_arr;
     if($str == '')
     {
-    	return NULL;
+    	return [];
     }
-    
-	return $str[2];
+    $start = 0;
+    $end = strlen($str)-1;
+	action($str,$start,$end);
+	return $return_arr;
+	return array_values(array_unique($return_arr));
 }
 
 
-function action($str,$start,$end){
-	if($end >= $start)
-	{
-		return NULL;
-	}
-	if($end-$start == 1)
-	{
-		return $str[$end];
-	}
+function action(&$str,$start,$end){
 	global $return_arr;
+	if($start >= $end)
+	{
 
+		if(strlen($str) == $end+1)
+			array_push($return_arr, $str);
+	}
+	else 
+	{		
+		$arraySet = array();
+		for ($pch=$start; $pch<strlen($str); $pch++) {
+			if($pch==$start || !in_array($str[$pch],$arraySet))
+			{
+				array_push($arraySet, $str[$pch]);
+				$temp = $str[$pch];
+				$str[$pch] = $str[$start];
+				$str[$start] = $temp;
+					
+				action($str,$start+1,$end);
+
+				$temp = $str[$pch];
+				$str[$pch] = $str[$start];
+				$str[$start] = $temp;
+			} 
+			
+		}
+	}
 
 }
-$str = 'abc';
 
-$result = Permutation($str);
+// 别人的代码 
+function Permutation2($str)
+{
+    // write code here
+    if(strlen($str)==0) return [];
+    $arr = str_split($str);
+    sort($arr);
+    $res = [];
+    recursion($arr,$res,'');
+    return $res;
+}
+ 
+function recursion($arr, &$res, $str) {
+    $len = count($arr);
+    if ($len == 1) {
+        $res[] = $str . $arr[0];
+        return;
+    }
+ 
+    for ($i = 0; $i < $len; $i++) {
+        if ($i != 0 && $arr[0] == $arr[$i]) {
+            continue;
+        }
+ 
+        list($arr[$i], $arr[0]) = [$arr[0], $arr[$i]];
+        recursion(array_slice($arr, 1), $res, $str . $arr[0]);
+    }
+ 
+}
+
+$str = 'aa';
+
+$result = Permutation2($str);
 
 print_r($result);
+// print_r($return_arr);
