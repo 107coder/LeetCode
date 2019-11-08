@@ -6,4 +6,34 @@ HZ偶尔会拿些专业问题来忽悠那些非计算机专业的同学。今天
 function FindGreatestSumOfSubArray($array)
 {
     // write code here
+    if(empty($array) || $array==NULL)
+    {
+    	return 0;
+    }
+
+    $returnMax = $array[0];
+    $curMax = 0;
+
+    foreach ($array as $key => $value) {
+    	if($curMax < 0)
+    	{
+    		$curMax = $value;
+    	}
+    	else 
+    	{
+    		$curMax += $value;
+    	}
+    	if($curMax>$returnMax)
+    	{
+    		$returnMax = $curMax;
+    	}
+    }
+
+    return $returnMax;
 }
+
+$array = [6,-3,-2,7,-15,1,2,2];
+$array = [1,-2,3,10,-4,7,2,-5];
+$resutl = FindGreatestSumOfSubArray($array);
+print_r($resutl);
+// var_dump($array);
