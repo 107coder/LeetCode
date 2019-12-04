@@ -6,4 +6,44 @@ LL今天心情特别好,因为他去买了一副扑克牌,发现里面居然有2
 function IsContinuous($numbers)
 {
     // write code here
+    if($numbers == NULL || count($numbers)!=5){
+    	return NULL;
+    }
+    // 将特殊字符进行转换 并且统计0的个数
+    $zero_num = 0;
+    foreach ($numbers as $key => &$value) {
+    	if($value=='A') $value = '1';
+    	else if($value=='J') $value = '11';
+    	else if($value=='Q') $value = '12';
+    	else if($value=='K') $value = '13';
+    	else if($value=='0') $zero_num++;
+    	else ;
+    }
+    // 对数组进行排序
+    sort($numbers);
+
+    $i=4; // 指向最后一个数据
+    $times=0; // 用来统计比较的次数
+    $curVal = $numbers[$i];
+    while ($i>=0) {
+    	if($times>=5) return true;
+    	if($zero_num<0) return false;
+    	if($curVal != $numbers[$i-1]+1){
+    		$zero_num--;
+    		$curVal --;
+    	}else{
+    		$i--;
+    		$curVal = $numbers[$i];
+    	}
+    	$times ++;
+    }
+
+    print_r($numbers);
+    print_r($zero_num);
 }
+
+$numbers = ['A','3','0','0','5'];
+$numbers = [1,3,2,5,4];
+$res = IsContinuous($numbers);
+
+var_dump($res);
