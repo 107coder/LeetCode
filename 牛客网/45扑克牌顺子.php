@@ -12,20 +12,20 @@ function IsContinuous($numbers)
     // 将特殊字符进行转换 并且统计0的个数
     $zero_num = 0;
     foreach ($numbers as $key => &$value) {
-    	if($value=='A') $value = '1';
-    	else if($value=='J') $value = '11';
-    	else if($value=='Q') $value = '12';
-    	else if($value=='K') $value = '13';
+    	if($value==='A') $value = '1';
+    	else if($value==='J') $value = '11';
+    	else if($value==='Q') $value = '12';
+    	else if($value==='K') $value = '13';
     	else if($value=='0') $zero_num++;
     	else ;
     }
     // 对数组进行排序
     sort($numbers);
-
     $i=4; // 指向最后一个数据
     $times=0; // 用来统计比较的次数
     $curVal = $numbers[$i];
-    while ($i>=0) {
+
+    while ($i>0) {
     	if($times>=5) return true;
     	if($zero_num<0) return false;
     	if($curVal != $numbers[$i-1]+1){
@@ -37,13 +37,12 @@ function IsContinuous($numbers)
     	}
     	$times ++;
     }
-
-    print_r($numbers);
-    print_r($zero_num);
+    return true;
 }
 
 $numbers = ['A','3','0','0','5'];
-$numbers = [1,3,2,5,4];
+$numbers = [1,3,2,6,4];
+$numbers = [0,3,2,6,4];
 $res = IsContinuous($numbers);
 
 var_dump($res);
