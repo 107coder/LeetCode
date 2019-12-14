@@ -6,7 +6,8 @@
 如果没有小朋友，请返回-1
 这个就是猴子选大王的问题吧
 */
-function LastRemaining_Solution($n, $m)
+// 时间复杂度太高了，不能通过
+function LastRemaining_Solution_1($n, $m)
 {
     // write code here
     if($n < 1 || $m>$n){
@@ -31,8 +32,25 @@ function LastRemaining_Solution($n, $m)
     return array_pop($children);
 }
 
-$n = 100;
-$m = 5;
+function LastRemaining_Solution($n, $m)
+{
+    // write code here
+    if($n < 1){
+        return -1;
+    }
+    $children = range(0, $n-1);
+    $index = -1;
+    while (count($children) > 1) {
+        $index = ($index+$m)%count($children);
+        array_splice($children, $index,1);
+        $index--;
+    }
+
+    return array_pop($children);
+}
+
+$n = 6;
+$m = 7;
 
 $result = LastRemaining_Solution($n,$m);
 
