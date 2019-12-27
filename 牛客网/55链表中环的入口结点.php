@@ -12,7 +12,19 @@ class ListNode{
 }
 function EntryNodeOfLoop($pHead)
 {
-    
+    if($pHead == NULL){
+    	return $pHead;
+    }
+    if($p1 = isLoop($pHead)){
+    	$p2 = $pHead;
+    	while($p1 != $p2){
+    		$p1 = $p1->next;
+    		$p2 = $p2->next;
+    	}
+    	return $p1;
+    }else{
+    	return NULL;
+    }
 }
 
 function isLoop($pHead){
@@ -20,10 +32,13 @@ function isLoop($pHead){
 	$p2 = $p1;
 
 	while($p1->next != NULL){
-		$p1 = $p1->next->next;
+		$p1 = $p1->next;
+		if($p1 == NULL) return false;
+		$p1 = $p1->next;
+		if($p1 == NULL) return false;
 		$p2 = $p2->next;
 		if($p1 == $p2){
-			return true;
+			return $p1;
 		}
 	}
 }
@@ -39,7 +54,8 @@ $node2->next = $node3;
 $node3->next = $node4;
 $node4->next = $node5;
 $node5->next = $node6;
-$ndoe6->next = $node3;
+$node6->next = $node3;
 
-$res = isLoop($pHead);
+// print_r($pHead);
+$res = EntryNodeOfLoop($pHead);
 var_dump($res);
