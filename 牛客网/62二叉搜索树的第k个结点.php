@@ -17,12 +17,10 @@ require "CreateTree.php";
 function KthNode($pRoot, $k)
 {
     // write code here
-    if($pRoot == NULL){
-        return "";
-    }
-    if($k<0){
+    if($pRoot == NULL || $k<=0){
         return NULL;
     }
+
     $stack = array();
     $index = 0;
     while($pRoot != NULL || !empty($stack)){
@@ -54,7 +52,6 @@ function findTree($pRoot){
             $node = array_pop($stack);
             echo $node->val." ";
             $pRoot = $node->right;
-
         }
     }
 }

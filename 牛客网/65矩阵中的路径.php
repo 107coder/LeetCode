@@ -5,26 +5,64 @@
 */
 /*
 	解题思路：
-		1. 建立二维数组，同时建立一个位置表，标识路径是否被访问过
+		1. 建立一个标志的列表
 		2. 找到第一个 字符的位置，找不到，直接返回找不到 ，如果有多个开始的位置，那就分别开始吧
 		3. 从字符开始，回溯法查找
 	*/
 function hasPath($matrix, $rows, $cols, $path)
 {
-	if(empty($matrix) || count($matrix)!=$rows*$cols){
+	if(empty($matrix) || $cols<=0 || $rows<=0){
+		return false;
+	}
+	if(strlen($path)==0){
 		return false;
 	}
     // write code here
-    $arr_arr = [[]];
-    $arr_arr2 = [[]];
+	$isOK = array();
+	for($i=0; $i<count($matrix); $i++){
+		$isOK[$i] = 0;
+	}
     for($row=0; $row<$rows; $row++){
     	for($col=0; $col<$cols; $col++){
-    		$index = $row*$rows+$col;
-    		$arr_arr[$row][$col] = $matrix[$index];	
-			$arr_arr2[$row][$col] = 0;
+    		if(hasPathCore($matrix,$isOK,$rows,$cols,$row,$col,$path,0))
+    			return true;
     	}
     }
-    print_r($arr_arr);
+    return false;
+}
+
+function hasPathCore($matrix,&$isOK,$rows,$cols,$curx,$cury,$path,$index){
+	if($index >= strlen($path)){
+		return true;
+	}
+	// 如果y轴的坐标值 == 列数
+	if($cury == $cols){
+		$curx++;
+		$cury = 0;
+	}
+	// 如果cury == -1  
+	if($cury == -1){
+		$curx--;
+		$cury = $cols-1;
+	}
+
+	if($curx<0 || $curx>=$cols){
+		return false;
+	}
+	// 首先判断这个点的值是否被访问过
+	if($isOK[$curx*$cols+$cury]!=0 || $matrix[$curx*$cols+$cury] != $path[$index]){
+		return false;
+	}
+	
+	$isOK[$curx*$cols+$cury] = 1;
+
+	$sign = hasPathCore($matrix,$isOK,$rows,$cols,$curx+1,$cury,$path,$index+1)
+			|| hasPathCore($matrix,$isOK,$rows,$cols,$curx-1,$cury,$path,$index+1)
+			|| hasPathCore($matrix,$isOK,$rows,$cols,$curx,$cury+1,$path,$index+1)
+			|| hasPathCore($matrix,$isOK,$rows,$cols,$curx,$cury-1,$path,$index+1);
+	$isOK[$curx*$cols+$cury] = 0;
+
+	return $sign;
 }
 
 $matrix = ['a','b','c','e','s','f','c','s','a','d','e','e'];
@@ -32,5 +70,11 @@ $rows = 3;
 $cols = 4;
 $path = 'bcced';
 
+
+$matrix = "ABCESFCSADEE";
+$rows = 3;
+$cols = 4;
+$path = "ABCCED";
+$path = "ABCB";
 $res = hasPath($matrix,$rows,$cols,$path);
 var_dump($res);

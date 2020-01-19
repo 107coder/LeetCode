@@ -11,8 +11,40 @@
 			8
 		输出
 			18
+	贪心 和 动态规划 吧
 */
+/**
+* 实际上题目转换为，看看一个整数到底可以分成几个 2  和 3
+*/
+
 function cutRope($number)
 {
+	if($number<=1){
+		return 0;
+	}
+	if($number==2){
+		return 1;
+	}
+	if($number == 3){
+		return 2;
+	}
     // write code here
+    $res = 1;
+
+    $number3 = intval($number/3);
+    $yu = $number%3;
+
+    if($yu == 1){
+    	$number3 = $number3-1;
+    	$yu = 4;
+    }else if($yu == 0){
+    	$yu = 1;
+    }
+
+    $res = pow(3,$number3) * $yu;
+    return $res;
 }
+
+$number = 8;
+$res = cutRope($number);
+print_r($res);
