@@ -15,7 +15,7 @@ function heapify(&$arr,$i){ // 堆调整
 	$left = 2*$i + 1;
 	$right = 2*$i + 2;
 	$largest = $i;
-
+	// 如果左节点不超过总长度，并且做子树的结点大于根节点
 	if($left<$len && $arr[$left]>$arr[$largest]){
 		$largest = $left;
 	}
