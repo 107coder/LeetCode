@@ -120,9 +120,6 @@ echo "</pre>";
  * 总结：方法二不是太理解为什么那么取值，自己想不出来，但是，使用方法二还没有我使用方法一的运行时间快和占用内存少
  */
 /*
-链接：https://www.nowcoder.com/questionTerminal/8a19cbe657394eeaac2f6ea9b0f6fcf6?f=discussion
-来源：牛客网
-
 public class Solution {
     public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
         TreeNode root=reConstructBinaryTree(pre,0,pre.length-1,in,0,in.length-1);
