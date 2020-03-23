@@ -41,7 +41,7 @@ function matchCore($s,$pattern,$sindex,$pindex){
 	if($sindex==strlen($s) && $pindex==strlen($pattern)){
 		return true;
 	}
-	// 字符串为到达末尾，但是模式到达末尾，返回false，退出匹配
+	// 字符串未到达末尾，但是模式到达末尾，返回false，退出匹配
 	if($sindex!=strlen($s) && $pindex==strlen($pattern)){
 		return false;
 	}
@@ -52,7 +52,7 @@ function matchCore($s,$pattern,$sindex,$pindex){
 		}else{
 			return false;
 		}
-	}else{                               // 情况二。后一个字符不是 *
+	}else{                               // 情况二。后一个字符是 *
 		if(($s[$sindex] == $pattern[$pindex]) || ($pattern[$pindex]=='.' && $sindex!=strlen($s) )) 
 			return matchCore($s,$pattern,$sindex,$pindex+2) 
 				|| matchCore($s,$pattern,$sindex+1,$pindex+2)
@@ -104,6 +104,7 @@ $pattern = 'a.a';
 // $pattern = 'ab*ac*a';
 $pattern = 'ab*a';
 $pattern = ".*";
+
 // $res = myFun($s,$pattern);
 $res = match($s,$pattern);
 var_dump($res);
