@@ -95,7 +95,7 @@ $obj = new MinStack();
 //$obj->push(-3);
 
 for ($i = 0; $i < 500; $i ++){
-//    $obj->push($i);
+    $obj->push($i);
 }
 $obj->push(0);
 $obj->push(1);
