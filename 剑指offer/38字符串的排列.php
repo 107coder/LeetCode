@@ -30,7 +30,12 @@ class Solution_jz38
         if($start >= $end && strlen($str) == $end+1){
             $res[] = $str;
         }else{
-            for($i = $start; $i < $end; $i++){
+            $arrSet = [];
+            for($i = $start; $i <= $end; $i++){
+                if(in_array($str[$i],$arrSet)) {
+                    continue;
+                }
+                $arrSet[] = $str[$i];
                 list($str[$start],$str[$i]) = array($str[$i],$str[$start]);
                 $this->action($res,$str,$start+1,$end);
                 list($str[$i],$str[$start]) = array($str[$start],$str[$i]);
@@ -41,7 +46,7 @@ class Solution_jz38
 
 $obj = new Solution_jz38();
 $s = 'abc';
-
+$s = 'aab';
 $res = $obj->permutation($s);
 
 print_r($res);
