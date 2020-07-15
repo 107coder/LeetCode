@@ -33,7 +33,6 @@ func main() {
 	node5.Next = nil
 	node5.Random = &node1
 
-	fmt.Println(node1)
 	rtn := copyRandomList(&node1)
 	fmt.Println(rtn)
 }
@@ -49,13 +48,14 @@ func copyRandomList(head *Node) *Node {
 	node.Val = old.Val
 	new = &node
 	cur = new
+	num := 1
 	for old.Next != nil {
 		old = old.Next
 		var node Node
 		node.Val = old.Val
 		cur.Next = &node
 		cur = cur.Next
-		fmt.Println("node = ", &node, "cur = ", cur)
+		num++
 	}
 
 	tmp := new
@@ -66,8 +66,14 @@ func copyRandomList(head *Node) *Node {
 		if random == nil {
 			cur.Random = nil
 		} else {
-			for tmp.Val != random.Val {
+			randomToEndCount, countToEnd := 0, num-1
+			for random.Next != nil {
+				randomToEndCount++
+				random = random.Next
+			}
+			for countToEnd > randomToEndCount {
 				tmp = tmp.Next
+				countToEnd--
 			}
 			cur.Random = tmp
 			tmp = new
