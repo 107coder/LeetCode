@@ -33,10 +33,35 @@ func main() {
 	node5.Next = nil
 	node5.Random = &node1
 
-	rtn := copyRandomList(&node1)
+	rtn := copyRandomList2(&node1)
 	fmt.Println(rtn)
 }
 
+// 使用 map的方法来复制链表
+func copyRandomList2(head *Node) *Node {
+	var newHead *Node
+	hashMap := make(map[*Node]*Node)
+
+	indexNode := head
+	for indexNode != nil {
+		var node Node
+		hashMap[indexNode] = &node
+		indexNode = indexNode.Next
+	}
+	newHead = hashMap[head]
+
+	indexNode = head
+	for indexNode != nil {
+		var node = hashMap[indexNode]
+		node.Val = indexNode.Val
+		node.Next = hashMap[indexNode.Next]
+		node.Random = hashMap[indexNode.Random]
+		indexNode = indexNode.Next
+	}
+	return newHead
+}
+
+// 使用传统的方法来 复制 链表
 func copyRandomList(head *Node) *Node {
 	if head == nil {
 		return nil
